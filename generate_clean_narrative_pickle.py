@@ -12,11 +12,16 @@ Tokenize narrative
 accidents_N=[]
 for i in range(len(accidents)):
     if type(accidents['narrative'][i])==str:
-        accidents_N.append(nltk.word_tokenize(accidents['narrative'][i]))
+      text = accidents['narrative'][i]
+      try:
+       accidents_N.append(nltk.word_tokenize(text))
+      except UnicodeDecodeError:
+        clean_text = ''
+        accidents_N.append(clean_text)
     else:
         accidents_N.append('')
-    
-print 'Tokenize finished'  
+
+print 'Tokenize finished'
 
 '''
 Remove stopwords and some common words like 'employee','ee'. Also only remain words which are all characters using s.isalpha()
@@ -27,8 +32,8 @@ if accidents_N!='':
     for i in range (len(accidents_N)):
         narrative_cleanup.append([w.lower() for w in accidents_N[i] if w.lower() not in remove_list and  w.isalpha()])
 else:
-    narrative_cleanup.append('') 
-        
+    narrative_cleanup.append('')
+
 print 'Removed stopwords finished'
 
 '''
